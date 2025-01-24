@@ -1,112 +1,135 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Shashi
-  Date: 1/20/2025
-  Time: 9:33 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.shashimadushan.ecomweb.dto.CartItemDTO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart</title>
-    <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .cart-container {
-            max-width: 1200px;
-            margin: 20px auto;
-        }
+        body { background-color: #f8f9fa; }
+
         .cart-card {
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            position: relative;
             padding: 20px;
-            background-color: #fff;
         }
+
+        .cart-image-container {
+            width: 80px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .cart-image {
-            height: 80px;
-            width: auto;
-            border-radius: 10px;
+            width: 80px; /* Set a consistent width */
+            height: auto; /* Maintain aspect ratio */
         }
-        .btn-update-quantity {
-            width: 40px;
-            height: 40px;
-            font-size: 18px;
+
+        .quantity-controls .btn {
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .quantity-input {
-            width: 50px;
-            text-align: center;
+
+        .quantity-display {
+            font-size: 16px;
             font-weight: bold;
         }
-        .remove-item-btn {
-            background-color: #dc3545;
-            color: #fff;
+
+        .btn-close {
+            background: none;
             border: none;
-            font-size: 14px;
-            padding: 8px 12px;
-            border-radius: 5px;
+            font-size: 18px;
+            opacity: 0.6;
+            position: absolute;
+            top: 10px;
+            right: 10px;
         }
-        .order-summary {
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+
+        .btn-close:hover {
+            opacity: 1;
+            cursor: pointer;
         }
-        .btn-checkout {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            width: 100%;
+
+        .btn-checkout { background-color: #28a745; color: white; border: none; padding: 10px 20px; font-size: 16px; border-radius: 5px; width: 100%; }
+        .btn-checkout:hover { background-color: #218838; }
+
+        .cart-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
         }
-        .btn-checkout:hover {
-            background-color: #218838;
+
+        .cart-info {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+
+        .cart-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
     </style>
 </head>
 <body>
-
+<%
+   List<CartItemDTO> cartItemDTOS = (List<CartItemDTO>) request.getAttribute("cartItems");
+   String errorMessage = (String) request.getAttribute("error");
+%>
 <div class="container cart-container">
     <h2 class="mb-4">Shopping Cart</h2>
     <div class="row">
-        <!-- Cart Items Section -->
         <div class="col-lg-8">
-            <c:forEach var="item" items="${cartItems}">
-                <div class="cart-card mb-3">
-                    <div class="row align-items-center">
-                        <div class="col-md-2 text-center">
-                            <img src="${item.image}" alt="Product Image" class="cart-image">
+            <% if (errorMessage != null) { %>
+                <div class="alert alert-danger" role="alert">
+                    <%= errorMessage %>
+                </div>
+            <% } else if (cartItemDTOS != null && !cartItemDTOS.isEmpty()) { %>
+                <% for (CartItemDTO item : cartItemDTOS) { %>
+            <div class="cart-card mb-3 shadow-sm rounded">
+                <button class="btn-close remove-item-btn" data-id="<%= item.getId() %>"></button>
+                <div class="cart-details">
+                    <!-- Product Image -->
+                    <div class="cart-image-container">
+                        <img src="<%= item.getProduct().getImagepath() %>" alt="Product Image" class="cart-image">
+                    </div>
+
+                    <!-- Product Details -->
+                    <div class="cart-info">
+                        <h5 class="mb-1 text-dark"><%= item.getProduct().getName() %></h5>
+                        <small class="text-muted">$<%= item.getProduct().getPrice() %> / item</small>
+                    </div>
+
+                    <!-- Quantity Controls and Total Price -->
+                    <div class="cart-actions">
+                        <div class="quantity-controls d-flex align-items-center">
+                            <button class="btn btn-light btn-sm btn-update-quantity" data-id="<%= item.getId() %>" data-action="decrease">-</button>
+                            <span class="mx-2 quantity-display"><%= item.getQuantity() %></span>
+                            <button class="btn btn-light btn-sm btn-update-quantity" data-id="<%= item.getId() %>" data-action="increase">+</button>
                         </div>
-                        <div class="col-md-4">
-                            <h5 class="mb-1">${item.productName}</h5>
-                            <p class="text-muted mb-0">Set: Colour ${item.color}</p>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <div class="input-group">
-                                <button class="btn btn-outline-secondary btn-update-quantity" data-id="${item.id}" data-action="decrease">-</button>
-                                <input type="text" class="form-control quantity-input" value="${item.quantity}" data-id="${item.id}" readonly>
-                                <button class="btn btn-outline-secondary btn-update-quantity" data-id="${item.id}" data-action="increase">+</button>
-                            </div>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <h6 class="mb-0">$${item.totalPrice}</h6>
-                        </div>
-                        <div class="col-md-2 text-center">
-                            <button class="remove-item-btn" data-id="${item.id}">Remove</button>
-                        </div>
+                        <h6 class="text-dark mt-2">$<%= item.getQuantity() * item.getProduct().getPrice() %></h6>
                     </div>
                 </div>
-            </c:forEach>
+            </div>
+
+            <% } %>
+            <% } else { %>
+                <p>Your cart is empty.</p>
+            <% } %>
         </div>
 
-        <!-- Order Summary Section -->
         <div class="col-lg-4">
             <div class="order-summary">
                 <h5>Order Summary</h5>
@@ -134,16 +157,12 @@
     </div>
 </div>
 
-<!-- Include Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Include AJAX for Dynamic Updates (Optional) -->
 <script>
     document.querySelectorAll('.btn-update-quantity').forEach(button => {
         button.addEventListener('click', function () {
             const id = this.dataset.id;
             const action = this.dataset.action;
-
-            // Call your backend to update quantity
             console.log(`Update item ID: ${id}, Action: ${action}`);
         });
     });
@@ -151,9 +170,8 @@
     document.querySelectorAll('.remove-item-btn').forEach(button => {
         button.addEventListener('click', function () {
             const id = this.dataset.id;
-
-            // Call your backend to remove item
             console.log(`Remove item ID: ${id}`);
+            // Add logic to remove the item from the cart
         });
     });
 </script>

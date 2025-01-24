@@ -52,7 +52,7 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item nav-item-custom"><a class="nav-link" href="#products">Products</a></li>
-                <li class="nav-item nav-item-custom"><a class="nav-link" href="cart.jsp">Cart</a></li>
+                <li class="nav-item nav-item-custom"><a class="nav-link" href="cart">Cart</a></li>
                 <li class="nav-item nav-item-custom"><a class="nav-link" href="orders.jsp">Orders</a></li>
             </ul>
 
@@ -75,7 +75,7 @@
                             <li><span class="dropdown-item-text">Email: <%= userEmail %></span></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="myAccount.jsp">My Account</a></li>
-                            <li><a class="dropdown-item" href="logout.jsp">Logout</a></li>
+                            <li><a class="dropdown-item" href="logout">Logout</a></li>
                         </ul>
                     </div>
                     <% } else { %>

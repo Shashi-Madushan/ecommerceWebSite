@@ -22,7 +22,7 @@ public class CartItem {
     @JoinColumn(name = "userId", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "productId", nullable = false)
     private Product product;
 
