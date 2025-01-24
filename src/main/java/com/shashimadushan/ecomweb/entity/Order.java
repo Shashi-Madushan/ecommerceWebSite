@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "order_table") // Avoid using reserved keywords
+@Table(name = "order_table")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter

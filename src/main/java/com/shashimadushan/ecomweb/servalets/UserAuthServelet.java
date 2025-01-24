@@ -33,7 +33,7 @@ public class UserAuthServelet extends HttpServlet {
                     if ("admin".equalsIgnoreCase(user.getRole())) {
                         resp.sendRedirect("adminDashboard.jsp");
                     } else if ("customer".equalsIgnoreCase(user.getRole())) {
-                        resp.sendRedirect("customerCart.jsp");
+                        resp.sendRedirect("index");
                     } else {
                         resp.sendRedirect("signin.jsp?error=Invalid role");
                     }

@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/cart")
+@WebServlet(urlPatterns = "/shitcart")
 public class CartItemsServelet extends HttpServlet {
 
     private CartItemBO cartItemBO = (CartItemBO) BOFactory.getBO(BOFactory.BOType.CARTITEM);

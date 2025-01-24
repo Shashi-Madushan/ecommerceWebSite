@@ -273,7 +273,7 @@
     </div>
 </section>
 
-<div class="fixed-cart">
+<div class="fixed-cart" onclick="">
     <i class="fas fa-shopping-cart"></i>
     <%
         Integer cartItemsCount = (Integer) request.getAttribute("cartItemsCount");
