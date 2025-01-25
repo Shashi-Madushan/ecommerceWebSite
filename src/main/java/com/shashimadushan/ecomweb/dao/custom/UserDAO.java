@@ -21,4 +21,5 @@ public interface UserDAO extends SupperDAO {
     // Delete a user by ID
     boolean deactivateUser(int userId);
     boolean activateUser(int userId);
+
 }

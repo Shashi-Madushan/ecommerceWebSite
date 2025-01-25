@@ -50,4 +50,9 @@ public class UserBOImpl implements UserBO {
     public boolean activateUser(int userId) {
         return userDAO.activateUser(userId);
     }
+
+    @Override
+    public boolean updateUser(UserDTO user) throws Exception {
+        return userDAO.updateUser(modelMapper.map(user, User.class));
+    }
 }

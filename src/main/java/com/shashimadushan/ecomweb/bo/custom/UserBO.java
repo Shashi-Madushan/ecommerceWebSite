@@ -43,5 +43,6 @@ public interface UserBO extends SupperBO {
      */
     boolean deactivateUser(String userId) throws Exception;
     boolean activateUser(int userId);
+    boolean updateUser(UserDTO user) throws Exception;
 
 }
