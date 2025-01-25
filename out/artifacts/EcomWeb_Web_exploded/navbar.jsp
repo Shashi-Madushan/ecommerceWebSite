@@ -38,7 +38,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container-fluid">
-        <a class="navbar-brand p-2" href="#">
+        <a class="navbar-brand p-2" href="index">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l9 4.5-9 4.5-9-4.5L12 2z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12l9 4.5-9 4.5-9-4.5L12 12z" />
@@ -51,7 +51,8 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item nav-item-custom"><a class="nav-link" href="#products">Products</a></li>
+                <li class="nav-item nav-item-custom"><a class="nav-link" href="index">Home</a></li>
+                <li class="nav-item nav-item-custom"><a class="nav-link" href="moreproducts">All Products</a></li>
                 <li class="nav-item nav-item-custom"><a class="nav-link" href="cart">Cart</a></li>
                 <li class="nav-item nav-item-custom"><a class="nav-link" href="orders.jsp">Orders</a></li>
             </ul>

@@ -125,6 +125,7 @@
             transform: scale(1.1);
         }
 
+
         .cart-count {
             position: absolute;
             top: 5px;
@@ -273,7 +274,8 @@
     </div>
 </section>
 
-<div class="fixed-cart" onclick="">
+<div class="fixed-cart" onclick="goToCart()">
+
     <i class="fas fa-shopping-cart"></i>
     <%
         Integer cartItemsCount = (Integer) request.getAttribute("cartItemsCount");
@@ -321,7 +323,12 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    function goToCart() {
+        window.location.href = 'cart'; // Redirects to the "cart" page
+    }
     $(document).ready(function() {
+
+
         let cartCount = 0;
         let userId;
         let productId;
