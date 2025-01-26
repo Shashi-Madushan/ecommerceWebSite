@@ -2,100 +2,165 @@ package com.shashimadushan.ecomweb.dao.impl;
 
 import com.shashimadushan.ecomweb.dao.custom.OrderDetailDAO;
 import com.shashimadushan.ecomweb.entity.OrderDetail;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.transaction.Transactional;
+import com.shashimadushan.ecomweb.util.FactoryConfiguration;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import java.util.List;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
-    @Transactional
     public boolean addOrderDetail(OrderDetail orderDetail) throws Exception {
+        Transaction transaction = null;
+        Session session = null;
         try {
-            entityManager.persist(orderDetail);
+            session = FactoryConfiguration.getInstance().getSession();
+            transaction = session.beginTransaction();
+            session.persist(orderDetail);
+            transaction.commit();
             return true;
         } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-            return false;
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
     public OrderDetail getOrderDetailById(String orderDetailId) throws Exception {
+        Session session = null;
         try {
-            return entityManager.find(OrderDetail.class, Long.parseLong(orderDetailId));
+            session = FactoryConfiguration.getInstance().getSession();
+            return session.get(OrderDetail.class, Long.parseLong(orderDetailId));
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
-    @Transactional
     public boolean updateOrderDetail(OrderDetail orderDetail) throws Exception {
+        Transaction transaction = null;
+        Session session = null;
         try {
-            entityManager.merge(orderDetail);
+            session = FactoryConfiguration.getInstance().getSession();
+            transaction = session.beginTransaction();
+            session.merge(orderDetail);
+            transaction.commit();
             return true;
         } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-            return false;
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
-    @Transactional
     public boolean deleteOrderDetail(String orderDetailId) throws Exception {
+        Transaction transaction = null;
+        Session session = null;
         try {
-            OrderDetail orderDetail = getOrderDetailById(orderDetailId);
+            session = FactoryConfiguration.getInstance().getSession();
+            transaction = session.beginTransaction();
+            OrderDetail orderDetail = session.get(OrderDetail.class, Long.parseLong(orderDetailId));
             if (orderDetail != null) {
-                entityManager.remove(orderDetail);
+                session.remove(orderDetail);
+                transaction.commit();
                 return true;
             }
             return false;
         } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-            return false;
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
     public List<OrderDetail> getAllOrderDetails() throws Exception {
+        Session session = null;
         try {
-            return entityManager.createQuery("SELECT od FROM OrderDetail od", OrderDetail.class).getResultList();
+            session = FactoryConfiguration.getInstance().getSession();
+            return session.createQuery("from OrderDetail", OrderDetail.class).list();
         } catch (Exception e) {
             e.printStackTrace();
-            return List.of();
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
-    @Transactional
     public boolean saveOrderDetails(List<OrderDetail> orderDetails) throws Exception {
+        Transaction transaction = null;
+        Session session = null;
         try {
+            session = FactoryConfiguration.getInstance().getSession();
+            transaction = session.beginTransaction();
             for (OrderDetail orderDetail : orderDetails) {
-                entityManager.persist(orderDetail);
+                session.persist(orderDetail);
             }
+            transaction.commit();
             return true;
         } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
-            return false;
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 
     @Override
     public List<OrderDetail> getOrderDetailsByOrderId(String orderId) throws Exception {
+        Session session = null;
         try {
-            return entityManager.createQuery("SELECT od FROM OrderDetail od WHERE od.order.id = :orderId", OrderDetail.class)
-                    .setParameter("orderId", Long.parseLong(orderId))
-                    .getResultList();
+            session = FactoryConfiguration.getInstance().getSession();
+            Long orderLongId = null;
+            try {
+                orderLongId = Long.parseLong(orderId);
+            } catch (NumberFormatException e) {
+                throw new Exception("Invalid order ID format", e);
+            }
+            return session.createQuery("from OrderDetail od where od.order.id = :orderId", OrderDetail.class)
+                    .setParameter("orderId", orderLongId)
+                    .list();
         } catch (Exception e) {
             e.printStackTrace();
-            return List.of();
+            throw e;
+        } finally {
+            if (session != null) {
+                session.close();
+            }
         }
     }
 }

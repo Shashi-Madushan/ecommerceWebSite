@@ -14,7 +14,7 @@ public interface OrderBO extends SupperBO {
      * @param orderDTO the order data transfer object
      * @throws Exception if an error occurs during order creation
      */
-    void createOrder(OrderDTO orderDTO) throws Exception;
+    Boolean createOrder(OrderDTO orderDTO) throws Exception;
 
     /**
      * Retrieve an order by its ID.

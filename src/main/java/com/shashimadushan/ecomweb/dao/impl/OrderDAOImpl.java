@@ -11,9 +11,10 @@ public class OrderDAOImpl implements OrderDAO {
 
     @Override
     public boolean addOrder(Order order) throws Exception {
+        Session session = null;
         Transaction transaction = null;
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-
+        try {
+            session = FactoryConfiguration.getInstance().getSession();
             transaction = session.beginTransaction();
             session.save(order);
             transaction.commit();
@@ -21,21 +22,28 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
             throw e;
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public Order getOrderById(String orderId) throws Exception {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+        Session session = null;
+        try {
+            session = FactoryConfiguration.getInstance().getSession();
             return session.get(Order.class, Long.parseLong(orderId));
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public boolean updateOrder(Order order) throws Exception {
+        Session session = null;
         Transaction transaction = null;
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-
+        try {
+            session = FactoryConfiguration.getInstance().getSession();
             transaction = session.beginTransaction();
             session.update(order);
             transaction.commit();
@@ -43,14 +51,17 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
             throw e;
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public boolean deleteOrder(String orderId) throws Exception {
+        Session session = null;
         Transaction transaction = null;
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-
+        try {
+            session = FactoryConfiguration.getInstance().getSession();
             transaction = session.beginTransaction();
             Order order = session.getReference(Order.class, Long.parseLong(orderId));
             session.remove(order);
@@ -59,23 +70,33 @@ public class OrderDAOImpl implements OrderDAO {
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
             throw e;
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public List<Order> getAllOrders() throws Exception {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
+        Session session = null;
+        try {
+            session = FactoryConfiguration.getInstance().getSession();
             return session.createQuery("FROM Order", Order.class).list();
+        } finally {
+            if (session != null) session.close();
         }
     }
 
     @Override
     public List<Order> getOrdersByCustomerId(String customerId) throws Exception {
-        try (Session session = FactoryConfiguration.getInstance().getSession()) {
-            String hql = "FROM Order WHERE user.user_id = :customerId";
+        Session session = null;
+        try {
+            session = FactoryConfiguration.getInstance().getSession();
+            String hql = "FROM Order WHERE user.userId = :customerId";
             return session.createQuery(hql, Order.class)
                     .setParameter("customerId", Long.parseLong(customerId))
                     .list();
+        } finally {
+            if (session != null) session.close();
         }
     }
 }

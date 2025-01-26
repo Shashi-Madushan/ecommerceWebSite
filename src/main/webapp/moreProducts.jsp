@@ -72,6 +72,11 @@
 
     <div class="search-bar">
         <input type="text" id="searchByName" class="form-control" placeholder="Search by name">
+        <select id="sortByPrice" class="form-select" style="max-width: 200px;">
+            <option value="default">Sort by Price</option>
+            <option value="asc">Price: Low to High</option>
+            <option value="desc">Price: High to Low</option>
+        </select>
         <div id="categoryFilter" class="d-flex flex-wrap">
             <!-- Checkboxes will be dynamically generated here -->
         </div>
@@ -83,7 +88,7 @@
             if (products != null && !products.isEmpty()) {
                 for (ProductDTO product : products) {
         %>
-        <div class="col product-card" data-name="<%=product.getName().toLowerCase()%>" data-category="<%=product.getCategory().getCategoryId()%>">
+        <div class="col product-card" data-name="<%=product.getName().toLowerCase()%>" data-category="<%=product.getCategory().getCategoryId()%>" data-price="<%=product.getPrice()%>">
             <div class="card shadow-sm">
                 <img src="<%=product.getImagepath()%>" class="card-img-top" alt="<%=product.getName()%>">
                 <div class="card-body">
@@ -111,8 +116,10 @@
 
     const searchByName = document.getElementById('searchByName');
     const productContainer = document.getElementById('productContainer');
+    const sortByPrice = document.getElementById('sortByPrice');
 
     searchByName.addEventListener('input', filterProducts);
+    sortByPrice.addEventListener('change', sortProducts);
 
     function fetchCategories() {
         // Fetch categories from the API
@@ -176,6 +183,26 @@
                 product.style.display = 'none';
             }
         });
+    }
+
+    function sortProducts() {
+        const sortOrder = sortByPrice.value;
+        const products = Array.from(document.querySelectorAll('.product-card'));
+
+        products.sort((a, b) => {
+            const priceA = parseFloat(a.getAttribute('data-price'));
+            const priceB = parseFloat(b.getAttribute('data-price'));
+
+            if (sortOrder === 'asc') {
+                return priceA - priceB;
+            } else if (sortOrder === 'desc') {
+                return priceB - priceA;
+            } else {
+                return 0;
+            }
+        });
+
+        products.forEach(product => productContainer.appendChild(product));
     }
 </script>
 <script src="js/jquery-3.7.1.min.js"></script>

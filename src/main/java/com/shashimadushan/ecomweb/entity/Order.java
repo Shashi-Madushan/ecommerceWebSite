@@ -25,8 +25,8 @@ public class Order {
     @JoinColumn(name = "userId", nullable = false)
     private User user;
 
+    @Column(nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
     private Date createdAt;
 
     @Column(nullable = false)
@@ -37,4 +37,9 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<OrderDetail> orderDetails;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = new Date(); // Automatically set the creation date
+    }
 }
