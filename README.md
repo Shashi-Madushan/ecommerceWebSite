@@ -31,16 +31,42 @@ The e-commerce application allows administrators to manage products, categories,
 ## 📸 **Screenshots**
 
 ### Home Page
-![Home Page](link-to-image)
+![Home Page](src/main/resources/readme%20imags/index2.png)
+![Home Page](src/main/resources/readme%20imags/index.png)
+
+### Register page
+![Register pag](src/main/resources/readme%20imags/signuppage2.png)
+
+### Login Page
+![Login Page](src/main/resources/readme%20imags/loginpage1.png)
 
 ### Product List
-![Product List](link-to-image)
+![Product List](src/main/resources/readme%20imags/All%20products%203.png)
 
 ### Shopping Cart
-![Shopping Cart](link-to-image)
+![Shopping Cart](src/main/resources/readme%20imags/cart.png)
+
+### User Account 
+![User Account](src/main/resources/readme%20imags/MyAccount.png)
 
 ### Admin Dashboard
-![Admin Dashboard](link-to-image)
+![Admin Dashboard](src/main/resources/readme%20imags/Admn%20dash.png)
+    
+### Product Mannager
+![product manager](src/main/resources/readme%20imags/product%20management.png)
+![add product](src/main/resources/readme%20imags/Add%20product.png)
+![cruds](src/main/resources/readme%20imags/updat%20product.png)
+![cruds](src/main/resources/readme%20imags/dlet%20pro.png)
+
+### Category Mannager
+![category manager](src/main/resources/readme%20imags/Category%20managmnt.png)
+
+### User Mannager
+![user mannager](src/main/resources/readme%20imags/User%20Managment.png)
+
+### Order Mannager
+![ordr mannager](src/main/resources/readme%20imags/order%20manage.png)
+
 
 ---
 
@@ -67,9 +93,9 @@ Watch the application in action on [YouTube](link-to-video).
 
 
 ## 🧑‍💻 **Developer**
-Your Name  
-[Your Email Address]  
-[Your LinkedIn Profile]
+Shashi madushan  
+[shashimadushan2002@gmail.com]  
+[www.linkedin.com/in/shashimadushan]
 
 ---
 Made With Love

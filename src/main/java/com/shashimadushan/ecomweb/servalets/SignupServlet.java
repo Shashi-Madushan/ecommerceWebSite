@@ -30,6 +30,7 @@ public class SignupServlet extends HttpServlet {
         }
         UserDTO userDTO = new UserDTO(fullName,email,password);
         userDTO.setStatus(true);
+        req.getRequestDispatcher("index");
         try {
             userBO.saveUser(userDTO);
         } catch (Exception e) {

@@ -94,7 +94,7 @@
     <div class="right-section">
         <h1>Welcome Back to Our Online Store</h1>
         <p>Continue shopping with amazing deals!</p>
-        <img src="path-to-your-image.jpg" alt="Shopping Illustration" class="illustration">
+        <img src="assets/18393139_5971960.jpg" alt="Shopping Illustration" class="illustration">
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

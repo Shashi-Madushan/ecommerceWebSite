@@ -216,8 +216,8 @@
 <%@ include file="featured-slider.jsp" %>
 
 <section class="container my-5">
-    <h2 class="text-center mb-4">Browse by Category</h2>
-    <div class="row text-center">
+    <h2 class="text-center mb-4">What We Sell</h2>
+<div class="row text-center">
         <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
             <div class="category-icon">📱</div>
             <p>Mobile Phones</p>
@@ -235,18 +235,18 @@
             <p>Wearables</p>
         </div>
         <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
-            <div class="category-icon">🖥️</div>
-            <p>Monitors</p>
+            <div class="category-icon">👗</div>
+            <p>Dresses</p>
         </div>
         <div class="col-lg-2 col-md-4 col-sm-6 mb-4">
-            <div class="category-icon">🎮</div>
-            <p>Gaming</p>
+            <div class="category-icon">👖</div>
+            <p>Jeans</p>
         </div>
     </div>
 </section>
 
 <section id="products" class="container my-5">
-    <h2 class="text-center mb-4">Explore Our Products</h2>
+    <h2 class="text-center mb-4">Explore Our Top Slling Products</h2>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
         <%
             List<ProductDTO> products = (List<ProductDTO>) request.getAttribute("products");

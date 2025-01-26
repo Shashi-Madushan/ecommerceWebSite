@@ -62,7 +62,7 @@
     <div class="left-section">
         <h1>Welcome to Our Online Store</h1>
         <p>Discover amazing products and deals!</p>
-        <img src="path-to-your-image.jpg" alt="Shopping Illustration" class="illustration">
+        <img src="assets/18393139_5971960.jpg" alt="Shopping Illustration" class="illustration">
     </div>
     <div class="right-section">
         <h2>Create Your Account</h2>
