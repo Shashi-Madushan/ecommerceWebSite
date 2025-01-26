@@ -115,7 +115,6 @@
             const quantity = checkbox.dataset.quantity;
             const productId = checkbox.dataset.productid;
 
-                console.log(itemId + quantity+ productId)
             // Create hidden inputs for selected items
             const itemIdInput = document.createElement('input');
             itemIdInput.type = 'hidden';
@@ -135,7 +134,6 @@
             productIdInput.value = productId;
             form.appendChild(productIdInput);
         });
-
 
         const totalInput = document.createElement('input');
         totalInput.type = 'hidden';
@@ -173,10 +171,8 @@
         const total = calculateTotal(subtotal);
 
         document.getElementById('total').textContent = total;
-
-
         document.getElementById('total').value = total.toFixed(2);
-        updateHiddenInputs()
+        updateHiddenInputs();
     }
 
     function setupEventListeners() {
@@ -205,13 +201,23 @@
 
         document.querySelectorAll('.remove-item-btn').forEach(button => {
             button.addEventListener('click', function () {
-                const card = this.closest('.cart-card');
-                card.remove();
-                updateOrderSummary();
+                const itemId = this.dataset.id;
+
+                // Create a form to submit the removal request
+                const form = document.createElement('form');
+                form.method = 'post';
+                form.action = 'deletecategory';
+
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'id';
+                input.value = itemId;
+                form.appendChild(input);
+
+                document.body.appendChild(form);
+                form.submit();
             });
         });
-
-
     }
 
     document.addEventListener('DOMContentLoaded', setupEventListeners);
