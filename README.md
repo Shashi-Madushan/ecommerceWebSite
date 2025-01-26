@@ -39,6 +39,7 @@ The e-commerce application allows administrators to manage products, categories,
 
 ### Login Page
 ![Login Page](src/main/resources/readme%20imags/loginpage1.png)
+![account](src/main/resources/readme%20imags/userdata.png)
 
 ### Product List
 ![Product List](src/main/resources/readme%20imags/All%20products%203.png)
