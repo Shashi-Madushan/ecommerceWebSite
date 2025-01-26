@@ -373,7 +373,7 @@
                 contentType: 'application/json',
                 data: JSON.stringify(productData),
                 success: function(response) {
-                    cartCount += qty;
+                    cartCount += 1;
                     $('.cart-count').text(cartCount);
                     $('#productModal').modal('hide');
                     alert('Product added to cart!');

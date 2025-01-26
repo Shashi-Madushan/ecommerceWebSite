@@ -103,7 +103,7 @@
               </svg>
               <h5 class="card-title">Order Management</h5>
               <p class="card-text">Track and manage customer orders.</p>
-              <a href="viewOrder" class="btn btn-primary mt-auto">Go to Order Management</a>
+              <a href="orderlist" class="btn btn-primary mt-auto">Go to Order Management</a>
             </div>
           </div>
         </div>

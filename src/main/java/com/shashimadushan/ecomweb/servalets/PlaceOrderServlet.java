@@ -103,6 +103,7 @@ public class PlaceOrderServlet extends HttpServlet {
                     }
 
                     System.out.println("Order saved");
+                    resp.sendRedirect("cart");
                 }
             } catch (Exception e) {
                 logger.error("Error creating order", e);

@@ -39,16 +39,21 @@
 <%@include file="navbar.jsp"%>
 <%
    List<CartItemDTO> cartItemDTOS = (List<CartItemDTO>) request.getAttribute("cartItems");
-   String errorMessage = (String) request.getAttribute("error");
+    String errorMessage = (String) request.getAttribute("error");
+    String message = (String) request.getAttribute("message");
 %>
 <div class="container cart-container">
     <h2 class="mb-4">Shopping Cart</h2>
     <div class="row">
         <div class="col-lg-8">
-            <% if (errorMessage != null) { %>
-                <div class="alert alert-danger" role="alert">
-                    <%= errorMessage %>
-                </div>
+            <% if (message != null) { %>
+            <div class="alert alert-success" role="alert">
+                <%= message %>
+            </div>
+            <% } else if (errorMessage != null) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= errorMessage %>
+            </div>
             <% } else if (cartItemDTOS != null && !cartItemDTOS.isEmpty()) { %>
                 <div id="cartItemsContainer">
                     <% for (CartItemDTO item : cartItemDTOS) { %>

@@ -54,7 +54,6 @@
                 <li class="nav-item nav-item-custom"><a class="nav-link" href="index">Home</a></li>
                 <li class="nav-item nav-item-custom"><a class="nav-link" href="moreproducts">All Products</a></li>
                 <li class="nav-item nav-item-custom"><a class="nav-link" href="cart">Cart</a></li>
-                <li class="nav-item nav-item-custom"><a class="nav-link" href="orders.jsp">Orders</a></li>
             </ul>
 
             <div class="d-flex p-2">
@@ -76,6 +75,7 @@
                             <li><span class="dropdown-item-text">Email: <%= userEmail %></span></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="userAccount.jsp">My Account</a></li>
+                            <li><a class="dropdown-item" href="orderlist?customerId=<%= userId %>">My Orders</a></li>
                             <li><a class="dropdown-item" href="logout">Logout</a></li>
                         </ul>
                     </div>
