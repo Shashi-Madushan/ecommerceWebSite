@@ -3,6 +3,7 @@ package com.shashimadushan.ecomweb.servalets;
 import com.shashimadushan.ecomweb.bo.BOFactory;
 import com.shashimadushan.ecomweb.bo.custom.CartItemBO;
 import com.shashimadushan.ecomweb.bo.custom.OrderBO;
+import com.shashimadushan.ecomweb.bo.custom.OrderDetailBO;
 import com.shashimadushan.ecomweb.bo.custom.ProductBO;
 import com.shashimadushan.ecomweb.dto.OrderDTO;
 import com.shashimadushan.ecomweb.dto.OrderDetailDTO;
@@ -34,20 +35,26 @@ public class PlaceOrderServlet extends HttpServlet {
     private final ModelMapper modelMapper = new ModelMapper();
     private final OrderBO orderBO = (OrderBO) BOFactory.getBO(BOFactory.BOType.ORDER);
     private final CartItemBO cartItemBO = (CartItemBO) BOFactory.getBO(BOFactory.BOType.CARTITEM);
+    private final OrderDetailBO orderDetailBO = (OrderDetailBO) BOFactory.getBO(BOFactory.BOType.ORDERDETAIL);
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String[] selectedItemIds = req.getParameterValues("selectedItems");
         String[] itemQuantities = req.getParameterValues("quantities");
         String[] productIds = req.getParameterValues("productIds");
-        String total = req.getParameter("total");
+        Double total = Double.valueOf(req.getParameter("total"));
+
+        System.out.println("total " + total);
+
         if (selectedItemIds == null) System.out.println("selcnull");
         if (itemQuantities == null) System.out.println("inull");
         if (productIds == null) System.out.println("pnul");
+
         if (selectedItemIds != null && itemQuantities != null && productIds != null) {
             List<OrderDetailDTO> orderDetails = new ArrayList<>();
             OrderDTO orderDTO = new OrderDTO();
             for (int i = 0; i < selectedItemIds.length; i++) {
+                System.out.println("inside for loop");
                 try {
                     String productId = productIds[i];
                     int quantity = Integer.parseInt(itemQuantities[i]);
@@ -58,9 +65,7 @@ public class PlaceOrderServlet extends HttpServlet {
                     orderDetailDTO.setProduct(product);
                     orderDetailDTO.setQuantity(quantity);
                     orderDetailDTO.setPrice(product.getPrice() * quantity);
-                    orderDetailDTO.setOrder(modelMapper.map(orderDTO, Order.class));
                     orderDetails.add(orderDetailDTO);
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -76,25 +81,32 @@ public class PlaceOrderServlet extends HttpServlet {
             User user = modelMapper.map(userDTO, User.class);
 
 
-            orderDTO.setOrderDetails(orderDetails);
-            orderDTO.setOrderDate(new Date());
-            orderDTO.setTotalAmount(Double.parseDouble(total));
+
+            orderDTO.setCreatedAt(new Date());
+            orderDTO.setTotalAmount(total);
             orderDTO.setUser(user);
             orderDTO.setStatus("Completed");
 
+            // Save the Order first
+            Order order = modelMapper.map(orderDTO, Order.class);
             try {
-                boolean isSaved = orderBO.createOrder(orderDTO);
-                if (isSaved) {
+                Order order1 = orderBO.createOrder( modelMapper.map(order,OrderDTO.class));
 
+                if (order1.getOrderId()!=null) {
+                    // Now that the Order is saved, set the saved order to the orderDetailDTOs and save them
+                   orderDetailBO.saveOrderDetails(orderDetails,order1);
+
+
+                    // Process cart items after order is saved
                     for (String id : selectedItemIds) {
                         cartItemBO.deleteCartItem(id);
                     }
+
+                    System.out.println("Order saved");
                 }
             } catch (Exception e) {
                 logger.error("Error creating order", e);
             }
-
-            resp.sendRedirect("cart");
         } else {
             resp.sendRedirect("cart.jsp?error=No items selected for order.");
         }

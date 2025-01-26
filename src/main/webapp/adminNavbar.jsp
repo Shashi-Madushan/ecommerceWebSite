@@ -49,7 +49,7 @@
                     <a class="nav-link" href="manageuser">User Management</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="viewOrder">Order Management</a>
+                    <a class="nav-link" href="orderlist">Order Management</a>
                 </li>
             </ul>
             <form class="d-flex">

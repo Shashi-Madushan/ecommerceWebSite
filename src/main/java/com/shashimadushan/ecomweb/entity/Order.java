@@ -21,7 +21,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", nullable = false)
     private User user;
 
@@ -29,14 +29,12 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
-    @Column(nullable = false)
-    private Double totalPrice;
+    @Column
+    private Double totalAmount;
 
     @Column(nullable = false)
     private String status; // e.g., "Pending", "Completed"
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<OrderDetail> orderDetails;
 
     @PrePersist
     protected void onCreate() {

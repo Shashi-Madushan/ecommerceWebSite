@@ -15,8 +15,9 @@ public class OrderBOImpl implements OrderBO {
     OrderDAO orderDAO = (OrderDAO) DAOFactory.getDAO(DAOFactory.DAOTypes.ORDER);
     ModelMapper modelMapper = new ModelMapper();
     @Override
-    public Boolean createOrder(OrderDTO orderDTO) throws Exception {
-     return    orderDAO.addOrder(modelMapper.map(orderDTO, Order.class));
+    public Order createOrder(OrderDTO orderDTO) throws Exception {
+         Order order=   orderDAO.addOrder(modelMapper.map(orderDTO, Order.class));
+        return order;
     }
 
     @Override

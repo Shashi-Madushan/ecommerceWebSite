@@ -10,23 +10,24 @@ import java.util.List;
 public class OrderDAOImpl implements OrderDAO {
 
     @Override
-    public boolean addOrder(Order order) throws Exception {
+    public Order addOrder(Order order) throws Exception {
         Session session = null;
         Transaction transaction = null;
         try {
             session = FactoryConfiguration.getInstance().getSession();
             transaction = session.beginTransaction();
-            session.save(order);
+            session.persist(order);
             transaction.commit();
-            return true;
+            System.out.println("Order saved");
+            return order; // Return the saved order
         } catch (Exception e) {
             if (transaction != null) transaction.rollback();
+            e.printStackTrace();
             throw e;
         } finally {
             if (session != null) session.close();
         }
     }
-
     @Override
     public Order getOrderById(String orderId) throws Exception {
         Session session = null;

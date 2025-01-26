@@ -12,10 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDTO {
-    private Long id;
+    private Long orderId;
     private User user; // To reference the user who placed the order
-    private Date orderDate;
+    private Date createdAt;
     private Double totalAmount;
     private String status; // e.g., "Pending", "Completed"
-    private List<OrderDetailDTO> orderDetails; // List of items in the order
 }

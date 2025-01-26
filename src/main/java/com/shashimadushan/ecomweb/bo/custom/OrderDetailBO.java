@@ -2,6 +2,9 @@ package com.shashimadushan.ecomweb.bo.custom;
 
 import com.shashimadushan.ecomweb.bo.SupperBO;
 import com.shashimadushan.ecomweb.dto.OrderDetailDTO;
+import com.shashimadushan.ecomweb.entity.Order;
+import com.shashimadushan.ecomweb.entity.User;
+
 import java.util.List;
 
 public interface OrderDetailBO extends SupperBO {
@@ -55,7 +58,7 @@ public interface OrderDetailBO extends SupperBO {
      * @param orderDetailDTOs the list of order detail data transfer objects
      * @throws Exception if an error occurs during order detail saving
      */
-    boolean saveOrderDetails(List<OrderDetailDTO> orderDetailDTOs) throws Exception;
+    boolean saveOrderDetails(List<OrderDetailDTO> orderDetailDTOs , Order order) throws Exception;
 
     /**
      * Retrieve order details by order ID.

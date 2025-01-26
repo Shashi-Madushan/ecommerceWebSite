@@ -7,7 +7,7 @@ import java.util.List;
 public interface OrderDAO extends SupperDAO {
 
     // Create a new order
-    boolean addOrder(Order order) throws Exception;
+    Order addOrder(Order order) throws Exception;
 
     // Retrieve an order by its ID
     Order getOrderById(String orderId) throws Exception;

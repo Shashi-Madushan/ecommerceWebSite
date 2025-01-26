@@ -1,7 +1,10 @@
 package com.shashimadushan.ecomweb.dao.custom;
 
 import com.shashimadushan.ecomweb.dao.SupperDAO;
+import com.shashimadushan.ecomweb.entity.Order;
 import com.shashimadushan.ecomweb.entity.OrderDetail;
+import com.shashimadushan.ecomweb.entity.User;
+
 import java.util.List;
 
 public interface OrderDetailDAO extends SupperDAO {
@@ -22,7 +25,7 @@ public interface OrderDetailDAO extends SupperDAO {
     List<OrderDetail> getAllOrderDetails() throws Exception;
 
     // Save a list of order details
-    boolean saveOrderDetails(List<OrderDetail> orderDetails) throws Exception;
+    boolean saveOrderDetails(List<OrderDetail> orderDetails , Order order) throws Exception;
 
     // Retrieve order details by order ID
     List<OrderDetail> getOrderDetailsByOrderId(String orderId) throws Exception;

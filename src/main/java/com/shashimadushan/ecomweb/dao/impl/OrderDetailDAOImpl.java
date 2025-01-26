@@ -1,7 +1,11 @@
 package com.shashimadushan.ecomweb.dao.impl;
 
+import com.shashimadushan.ecomweb.dao.DAOFactory;
+import com.shashimadushan.ecomweb.dao.custom.OrderDAO;
 import com.shashimadushan.ecomweb.dao.custom.OrderDetailDAO;
+import com.shashimadushan.ecomweb.entity.Order;
 import com.shashimadushan.ecomweb.entity.OrderDetail;
+import com.shashimadushan.ecomweb.entity.User;
 import com.shashimadushan.ecomweb.util.FactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,6 +13,7 @@ import org.hibernate.Transaction;
 import java.util.List;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
+    OrderDAO orderDAO = (OrderDAO) DAOFactory.getDAO(DAOFactory.DAOTypes.ORDER);
 
     @Override
     public boolean addOrderDetail(OrderDetail orderDetail) throws Exception {
@@ -116,13 +121,15 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-    public boolean saveOrderDetails(List<OrderDetail> orderDetails) throws Exception {
+    public boolean saveOrderDetails(List<OrderDetail> orderDetails, Order order) throws Exception {
+       Order order1 = orderDAO.getOrderById(String.valueOf(order.getOrderId()));
         Transaction transaction = null;
         Session session = null;
         try {
             session = FactoryConfiguration.getInstance().getSession();
             transaction = session.beginTransaction();
             for (OrderDetail orderDetail : orderDetails) {
+                orderDetail.setOrder(order1);
                 session.persist(orderDetail);
             }
             transaction.commit();
