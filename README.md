@@ -45,7 +45,7 @@ The e-commerce application allows administrators to manage products, categories,
 ![Product List](src/main/resources/readme%20imags/All%20products%203.png)
 
 ### Shopping Cart
-![Shopping Cart](src/main/resources/readme%20imags/cart.png)
+![Shopping Cart](src/main/resources/readme%20imags/cartnew.png)
 
 ### User Account 
 ![User Account](src/main/resources/readme%20imags/MyAccount.png)
