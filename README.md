@@ -73,7 +73,8 @@ The e-commerce application allows administrators to manage products, categories,
 
 ## 📽️ **Demonstration Video**
 
-Watch the application in action on [YouTube](link-to-video).
+[![Ecoomerce web site design with javaEE with JSP demo Video](https://img.youtube.com/vi/3A4_GuPhCy8/hqdefault.jpg)](https://www.youtube.com/watch?v=3A4_GuPhCy8)
+
 
 ---
 
